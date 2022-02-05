@@ -1,0 +1,86 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+int data;
+struct node *next};
+ struct node* top=NULL;
+int main()
+{
+    int i,n=5,n1;
+  for(i=1;i<=n;i++)
+  {
+      scanf("%d",&n1);
+    top=push(top,n1);
+  }
+  linkedlistTraversal(top);
+  for(i=1;i<=n;i++)
+  {
+      printf("the value at position %d is %d\n",i,peek(top,i));
+  }
+  printf("the popped element is %d\n",pop(top));
+}
+void linkedlistTraversal(struct node *ptr)
+{
+    printf("\n");
+    while(ptr!=NULL)
+    {
+        printf("%d\n",ptr->data);
+        ptr=ptr->next;
+    }
+}
+int isEmpty(struct node *ptr)
+{
+    if(ptr==NULL)
+        return 1;
+    else
+        return 0;
+}
+int isFull(struct node *ptr)
+{
+    struct node *n;
+    n= (struct node*)malloc(sizeof(struct node));
+    if(n==NULL)
+        return 1;
+    else
+        return 0;
+}
+ int push(struct node *ptr,int x)
+{
+    struct node *n;
+    n= (struct node*)malloc(sizeof(struct node));
+    if(isFull(ptr))
+        printf("Stack overflow:\n");
+    else
+    {
+       n->data=x;
+       n->next=ptr;
+       ptr=n;
+       return(ptr);
+    }
+}
+int pop(struct node *ptr)
+{
+    struct node* p;
+    if(isEmpty(ptr))
+        printf("stack underflow\n");
+    else
+    {
+        p=ptr;
+        ptr=p->next;
+        int y=p->data;
+        free(p);
+        return y;
+    }
+}
+int peek(struct node *ptr,int pos)
+{
+    int i;
+    for(i=1;(i<pos && ptr!=NULL);i++)
+    {
+        ptr=ptr->next;
+    }
+    if(ptr!=NULL)
+        return(ptr->data);
+    else
+        return -1;
+}
